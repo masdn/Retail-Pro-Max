@@ -14,6 +14,7 @@ CREATE TABLE Inventory (
     upc INTEGER PRIMARY KEY,
     description TEXT NOT NULL,
     quantity INTEGER DEFAULT 0,
+    vendor_id INTEGER,
     FOREIGN KEY(vendor_id) REFERENCES Vendor(vendor_id)
 );
 
