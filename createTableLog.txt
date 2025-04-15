@@ -1,13 +1,15 @@
-Customers  Employee   Inventory  Sales      Vendor   
+.read createTable.sql
 CREATE TABLE Employee (
     emp_id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     role TEXT NOT NULL
 );
+
 CREATE TABLE Vendor (
     vendor_id INTEGER PRIMARY KEY,
     vend_name TEXT NOT NULL
 );
+
 CREATE TABLE Inventory (
     upc INTEGER PRIMARY KEY,
     description TEXT NOT NULL,
@@ -15,10 +17,43 @@ CREATE TABLE Inventory (
     vendor_id INTEGER,
     FOREIGN KEY(vendor_id) REFERENCES Vendor(vendor_id)
 );
+
 CREATE TABLE Sales (
     receipt_no INTEGER PRIMARY KEY,
     date TEXT DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE Customers (
+    cust_id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+.tables
+Customers  Employee   Inventory  Sales      Vendor   
+.schema Employee
+CREATE TABLE Employee (
+    emp_id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    role TEXT NOT NULL
+);
+.schema Vendor
+CREATE TABLE Vendor (
+    vendor_id INTEGER PRIMARY KEY,
+    vend_name TEXT NOT NULL
+);
+.schema Inventory
+CREATE TABLE Inventory (
+    upc INTEGER PRIMARY KEY,
+    description TEXT NOT NULL,
+    quantity INTEGER DEFAULT 0,
+    vendor_id INTEGER,
+    FOREIGN KEY(vendor_id) REFERENCES Vendor(vendor_id)
+);
+.schema Sales
+CREATE TABLE Sales (
+    receipt_no INTEGER PRIMARY KEY,
+    date TEXT DEFAULT CURRENT_TIMESTAMP
+);
+.schema Customers
 CREATE TABLE Customers (
     cust_id INTEGER PRIMARY KEY,
     name TEXT NOT NULL
