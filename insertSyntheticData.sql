@@ -63,8 +63,10 @@ CREATE TABLE IF NOT EXISTS temp_inv(
 .mode csv
 .import ./mock_data/inventory_data.csv temp_inv
 
---INSERT INTO
---DROP TABLE IF EXISTS temp_inv;
+INSERT INTO Inventory(upc, description, quantity, price, vendor_id)
+SELECT * FROM temp_inv;
+
+DROP TABLE IF EXISTS temp_inv;
 
 CREATE TABLE IF NOT EXISTS temp_vend(
     vendor_id INTEGER PRIMARY KEY,
@@ -73,4 +75,10 @@ CREATE TABLE IF NOT EXISTS temp_vend(
 
 .import ./mock_data/vendor_data.csv temp_vend
 
---DROP TABLE IF EXISTS temp_vend;
+INSERT INTO Vendor(vendor_id, vend_name)
+SELECT * FROM temp_vend;
+
+DROP TABLE IF EXISTS temp_vend;
+
+
+
