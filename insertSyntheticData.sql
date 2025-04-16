@@ -92,3 +92,4 @@ INSERT INTO Customers(phoneNo, name)
 SELECT * FROM temp_cust;
 
 DROP TABLE IF EXISTS temp_cust;
+.mode column
