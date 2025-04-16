@@ -60,9 +60,11 @@ CREATE TABLE IF NOT EXISTS temp_inv(
     vendor_id INTEGER NOT NULL
 );
 
---.import ./mock_data/inventory_data.csv temp_inv
+.mode csv
+.import ./mock_data/inventory_data.csv temp_inv
 
-DROP TABLE IF EXISTS temp_inv;
+--INSERT INTO
+--DROP TABLE IF EXISTS temp_inv;
 
 CREATE TABLE IF NOT EXISTS temp_vend(
     vendor_id INTEGER PRIMARY KEY,
