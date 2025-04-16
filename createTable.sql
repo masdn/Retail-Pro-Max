@@ -1,29 +1,37 @@
 CREATE TABLE Employee (
-    emp_id INTEGER PRIMARY KEY,
+    EmpID INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
-    role TEXT NOT NULL
-);
-
-CREATE TABLE Vendor (
-    vendor_id INTEGER PRIMARY KEY,
-    vend_name TEXT NOT NULL
-
+    role TEXT NOT NULL,
+    vend_name TEXT NOT NULL,
+    FOREIGN KEY(vend_name) REFERENCES Vendor(vend_name)
 );
 
 CREATE TABLE Inventory (
     upc INTEGER PRIMARY KEY,
     description TEXT NOT NULL,
     quantity INTEGER DEFAULT 0,
-    vendor_id INTEGER,
+    price FLOAT DEFAULT 0.00,
+    vendor_id INTEGER NOT NULL,
     FOREIGN KEY(vendor_id) REFERENCES Vendor(vendor_id)
 );
 
 CREATE TABLE Sales (
-    receipt_no INTEGER PRIMARY KEY,
-    date TEXT DEFAULT CURRENT_TIMESTAMP
+    receiptNo INTEGER PRIMARY KEY,
+    date TEXT DEFAULT CURRENT_TIMESTAMP,
+    EmpID INTEGER NOT NULL,
+    CustID INTEGER NOT NULL,
+    upc INTEGER NOT NULL,
+    FOREIGN KEY(EmpID) REFERENCES Employee(EmpID),
+    FOREIGN KEY(CustID) REFERENCES Customers(CustID),
+    FOREIGN KEY(upc) REFERENCES Inventory(upc)
 );
 
 CREATE TABLE Customers (
-    cust_id INTEGER PRIMARY KEY,
+    CustID INTEGER PRIMARY KEY,
     name TEXT NOT NULL
+);
+
+CREATE TABLE Vendor (
+    vendor_id INTEGER PRIMARY KEY,
+    vend_name TEXT NOT NULL
 );
