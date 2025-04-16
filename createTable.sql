@@ -19,15 +19,15 @@ CREATE TABLE Sales (
     receiptNo INTEGER PRIMARY KEY,
     date TEXT DEFAULT CURRENT_TIMESTAMP,
     EmpID INTEGER NOT NULL,
-    CustID INTEGER NOT NULL,
+    CustPhone INTEGER NOT NULL,
     upc INTEGER NOT NULL,
     FOREIGN KEY(EmpID) REFERENCES Employee(EmpID),
-    FOREIGN KEY(CustID) REFERENCES Customers(CustID),
+    FOREIGN KEY(CustPhone) REFERENCES Customers(phoneNo),
     FOREIGN KEY(upc) REFERENCES Inventory(upc)
 );
 
 CREATE TABLE Customers (
-    CustID INTEGER PRIMARY KEY,
+    phoneNo INTEGER PRIMARY KEY,
     name TEXT NOT NULL
 );
 
