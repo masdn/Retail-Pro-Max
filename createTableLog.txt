@@ -1,4 +1,4 @@
-.read createTable.sql
+.read Retail-Pro-Max/createTable.sql
 CREATE TABLE Employee (
     EmpID INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
@@ -38,10 +38,13 @@ CREATE TABLE Vendor (
 );
 .tables
 Customers  Employee   Inventory  Sales      Vendor   
-.schema Vendor
-CREATE TABLE Vendor (
-    vendor_id INTEGER PRIMARY KEY,
-    vend_name TEXT NOT NULL
+.schema Employee
+CREATE TABLE Employee (
+    EmpID INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    role TEXT NOT NULL,
+    vend_name TEXT NOT NULL,
+    FOREIGN KEY(vend_name) REFERENCES Vendor(vend_name)
 );
 .schema Inventory
 CREATE TABLE Inventory (
@@ -68,12 +71,8 @@ CREATE TABLE Customers (
     phoneNo INTEGER PRIMARY KEY,
     name TEXT NOT NULL
 );
-.schema Employee
-CREATE TABLE Employee (
-    EmpID INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    role TEXT NOT NULL,
-    vend_name TEXT NOT NULL,
-    FOREIGN KEY(vend_name) REFERENCES Vendor(vend_name)
+.schema Vendor
+CREATE TABLE Vendor (
+    vendor_id INTEGER PRIMARY KEY,
+    vend_name TEXT NOT NULL
 );
-
