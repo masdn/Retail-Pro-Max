@@ -25,32 +25,32 @@ VALUES (6, "Liz", "cashier", "Nestle");
 INSERT INTO Employee(EmpID, name, role, vend_name)
 VALUES (7, "Tanisha", "cashier", "Adidas");
 
-INSERT INTO Sales(receiptNo, date, EmpID, CustID, upc)
-VALUES (1, NULL, 1, 1, 1);
+INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
+VALUES (1, 1, 9098267635, 1);
 
 
-INSERT INTO Sales(receiptNo, date, EmpID, CustID, upc)
-VALUES (2, NULL, 2, 2, 2);
+INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
+VALUES (2, 2, 2776751724, 2);
 
 
-INSERT INTO Sales(receiptNo, date, EmpID, CustID, upc)
-VALUES (3, NULL, 3, 3, 3);
+INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
+VALUES (3, 3, 2776751724, 3);
 
 
-INSERT INTO Sales(receiptNo, date, EmpID, CustID, upc)
-VALUES (4, NULL, 4, 4, 4);
+INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
+VALUES (4, 4, 8362160449, 4);
 
 
-INSERT INTO Sales(receiptNo, date, EmpID, CustID, upc)
-VALUES (5, NULL, 5, 5, 5);
+INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
+VALUES (5, 5, 8362160449, 5);
 
 
-INSERT INTO Sales(receiptNo, date, EmpID, CustID, upc)
-VALUES (6, NULL, 6, 6, 6);
+INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
+VALUES (6, 6, 6852899987, 6);
 
 
-INSERT INTO Sales(receiptNo, date, EmpID, CustID, upc)
-VALUES (7, NULL, 7, 7, 7);
+INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
+VALUES (7, 7, 1414786801, 7);
 
 CREATE TABLE IF NOT EXISTS temp_inv(
     upc INTEGER PRIMARY KEY,
@@ -81,4 +81,14 @@ SELECT * FROM temp_vend;
 DROP TABLE IF EXISTS temp_vend;
 
 
+CREATE TABLE IF NOT EXISTS temp_cust(
+    phoneNo INTEGER PRIMARY KEY,
+    vend_name TEXT NOT NULL
+);
 
+.import ./mock_data/customer_data.csv temp_cust
+
+INSERT INTO Customers(phoneNo, name)
+SELECT * FROM temp_cust;
+
+DROP TABLE IF EXISTS temp_cust;
