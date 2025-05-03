@@ -7,7 +7,7 @@ VALUES (2, "Sav", "owner", "Samsung");
 
 
 INSERT INTO Employee(EmpID, name, role, vend_name)
-VALUES (3, "Miles", "peasent", "Zara");
+VALUES (3, "Miles", "peasant", "Zara");
 
 
 INSERT INTO Employee(EmpID, name, role, vend_name)
@@ -26,31 +26,31 @@ INSERT INTO Employee(EmpID, name, role, vend_name)
 VALUES (7, "Tanisha", "cashier", "Adidas");
 
 INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
-VALUES (1, 1, 9098267635, 1);
+VALUES (1, 1, 9098267635, 100148097);
 
 
 INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
-VALUES (2, 2, 2776751724, 2);
+VALUES (2, 2, 2776751724, 100148049);
 
 
 INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
-VALUES (3, 3, 2776751724, 3);
+VALUES (3, 3, 2776751724, 100562386);
 
 
 INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
-VALUES (4, 4, 8362160449, 4);
+VALUES (4, 4, 8362160449, 100148034);
 
 
 INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
-VALUES (5, 5, 8362160449, 5);
+VALUES (5, 5, 8362160449, 100147930);
 
 
 INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
-VALUES (6, 6, 6852899987, 6);
+VALUES (6, 6, 6852899987, 100147867);
 
 
 INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
-VALUES (7, 7, 1414786801, 7);
+VALUES (7, 7, 1414786801, 100147584);
 
 CREATE TABLE IF NOT EXISTS temp_inv(
     upc INTEGER PRIMARY KEY,
