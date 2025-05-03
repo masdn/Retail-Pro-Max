@@ -1,0 +1,86 @@
+# 3 GENERAL QUERIES:
+
+# Gets the described item that are out of stock in our store; useful for inventory counts 
+
+SELECT upc, description
+FROM Inventory
+WHERE quantity == 0;
+
+# Gets all frontend retail workers from our store - in order to discern between #Inventory Stockers, Interns, Marketing team members that are not technically #considered front-end  in our database.
+SELECT EmpId, name , role 
+FROM Employee
+WHERE role = 'Sales Associate' OR role = 'cashier' OR role = 'Manager';
+
+# Products that have never been sold, (i.e. the ones that don’t appear in Sales )- useful #during periods of the year to asses financial decisions regarding ordering future #products
+SELECT i.upc, i.description 
+FROM Inventory i
+LEFT JOIN Sales s ON i.upc = s.upc
+WHERE s.upc IS NULL;
+
+# Joins
+
+# Get items that were sold today by combining Sales and Inventory tables on UPC #numbers
+SELECT *
+FROM Sales a
+JOIN Inventory b
+ON a.upc = b.upc
+WHERE DATE(a.date)=DATE();
+
+# Calculate total inventory value by vendor by multiplying quantity and price, then #grouping results by vendor name - To get a high level look at which vendors we are #stocking the most 
+SELECT v.vend_name, SUM(i.quantity * i.price) AS inventory_value
+FROM Inventory i
+JOIN Vendor v ON i.vendor_id = v.vendor_id
+GROUP BY v.vendor_id
+ORDER BY inventory_value DESC;
+
+# Order by
+
+#This query grabs all vendors that along with their
+#total sales and sorts them in descending order so that
+#the top selling vendors are at the top.
+SELECT vend_name, SUM(price) as subtotal
+FROM Inventory a
+JOIN Sales b ON a.upc = b.upc
+JOIN Vendor c ON a.vendor_id = c.vendor_id
+GROUP BY vend_name
+ORDER BY subtotal DESC;
+
+# DISTINCT :
+
+# Gets vendors (Brands) whose items we have in stock - in case we have to report to #Customers and/or Stockers  during reports of inventory.
+SELECT DISTINCT(vend_name)
+FROM Vendor 
+NATURAL JOIN Inventory 
+WHERE quantity > 0;
+
+# AGGREGATE:
+
+#List count of inventory for each item type, in order to examine if given inquiries by #Customers on what offer at the moment for types of products - and for the Stockers #to keep track of their inventory.
+SELECT description, SUM(quantity)
+FROM Inventory
+GROUP BY description;
+
+# Union query
+
+#Categorize products in Inventory as Premium if > 100, Standard if between 20 and #100, and Budget if less than 20 - Lets us generally categorize our inventory by price
+SELECT description, price, 'Premium' AS price_tier
+FROM Inventory
+WHERE price > 1000
+UNION
+SELECT description, price, 'Standard' AS price_tier
+FROM Inventory
+WHERE price BETWEEN 100 AND 1000
+UNION
+SELECT description, price, 'Budget' AS price_tier
+FROM Inventory
+WHERE price < 100
+ORDER BY price DESC;
+
+# Group by
+
+#Avg price of a vendors items - Can be used to see if this vendor primarily deals with #premium or another level of goods
+SELECT v.vendor_id, v.vend_name, AVG(i.price) AS average_price
+FROM Inventory i
+JOIN Vendor v ON i.vendor_id = v.vendor_id
+GROUP BY v.vendor_id, v.vend_name
+ORDER BY average_price DESC;
