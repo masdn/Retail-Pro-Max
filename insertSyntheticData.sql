@@ -48,6 +48,16 @@ VALUES (5, 5, 8362160449, 100147930);
 INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
 VALUES (6, 6, 6852899987, 100147867);
 
+INSERT INTO Sales(receiptNo, date, EmpID, CustPhone, upc)
+VALUES (12, date('now', '-11 years'), 2, 2776751724, 100147857);
+
+
+INSERT INTO Sales(receiptNo, date, EmpID, CustPhone, upc)
+VALUES (14, date('now', '-11 years'), 2, 9999070276, 100147857);
+
+
+INSERT INTO Sales(receiptNo, date, EmpID, CustPhone, upc)
+VALUES (15, date('now', '-11 years'), 2, 9998721431, 100147857);
 
 INSERT INTO Sales(receiptNo, EmpID, CustPhone, upc)
 VALUES (7, 7, 1414786801, 100147584);
