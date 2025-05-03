@@ -1,0 +1,105 @@
+SELECT upc, description
+FROM Inventory
+WHERE quantity == 0;
+--BEFORE:
+Run Time: real 0.048 user 0.032005 sys 0.011952
+--AFTER INDEX:
+Run Time: real 0.002 user 0.001622 sys 0.000601
+
+SELECT EmpId, name , role 
+FROM Employee
+WHERE role = 'Sales Associate' OR role = 'cashier' OR role = 'Manager';
+-- BEFORE:
+Run Time: real 0.000 user 0.000151 sys 0.000091
+-- AFTER INDEX:
+Run Time: real 0.001 user 0.000233 sys 0.000117
+
+SELECT i.upc, i.description 
+FROM Inventory i
+LEFT JOIN Sales s ON i.upc = s.upc
+WHERE s.upc IS NULL;
+-- BEFORE:
+Run Time: real 0.179 user 0.165819 sys 0.011943
+-- AFTER INDEX:
+Run Time: real 0.204 user 0.181933 sys 0.014836
+
+SELECT *
+FROM Sales a
+JOIN Inventory b
+ON a.upc = b.upc
+WHERE DATE(a.date)=DATE();
+-- BEFORE:
+Run Time: real 0.000 user 0.000103 sys 0.000061
+-- AFTER INDEX:
+Run Time: real 0.000 user 0.000101 sys 0.000058
+
+
+SELECT v.vend_name, SUM(i.quantity * i.price) AS inventory_value
+FROM Inventory i
+JOIN Vendor v ON i.vendor_id = v.vendor_id
+GROUP BY v.vendor_id
+ORDER BY inventory_value DESC;
+-- BEFORE:
+Run Time: real 0.048 user 0.045185 sys 0.002111
+-- AFTER INDEX: 
+Run Time: real 0.000 user 0.000243 sys 0.000025
+
+
+SELECT vend_name, SUM(price) as subtotal
+FROM Inventory a
+JOIN Sales b ON a.upc = b.upc
+JOIN Vendor c ON a.vendor_id = c.vendor_id
+GROUP BY vend_name
+ORDER BY subtotal DESC;
+-- BEFORE:
+Run Time: real 0.000 user 0.000070 sys 0.000043
+-- AFTER INDEX:
+Run Time: real 0.000 user 0.000043 sys 0.000011
+
+
+SELECT DISTINCT(vend_name)
+FROM Vendor 
+NATURAL JOIN Inventory 
+WHERE quantity > 0;
+-- BEFORE:
+Run Time: real 0.053 user 0.051400 sys 0.002112
+-- AFTER INDEX:
+Run Time: real 0.082 user 0.076156 sys 0.005997
+
+
+SELECT description, SUM(quantity)
+FROM Inventory
+GROUP BY description;
+-- BEFORE:
+Run Time: real 0.136 user 0.119941 sys 0.011283
+-- AFTER INDEX:
+Run Time: real 0.144 user 0.122819 sys 0.020862
+
+
+SELECT description, price, 'Premium' AS price_tier
+FROM Inventory
+WHERE price > 1000
+UNION
+SELECT description, price, 'Standard' AS price_tier
+FROM Inventory
+WHERE price BETWEEN 100 AND 1000
+UNION
+SELECT description, price, 'Budget' AS price_tier
+FROM Inventory
+WHERE price < 100
+ORDER BY price DESC;
+-- BEFORE: 
+Run Time: real 0.316 user 0.287136 sys 0.024096
+-- AFTER INDEX: 
+Run Time: real 0.369 user 0.315582 sys 0.053731
+
+
+SELECT v.vendor_id, v.vend_name, AVG(i.price) AS average_price
+FROM Inventory i
+JOIN Vendor v ON i.vendor_id = v.vendor_id
+GROUP BY v.vendor_id, v.vend_name
+ORDER BY average_price DESC;
+-- BEFORE:
+Run Time: real 0.049 user 0.046769 sys 0.001984
+-- AFTER INDEX:
+Run Time: real 0.001 user 0.000288 sys 0.000047 
